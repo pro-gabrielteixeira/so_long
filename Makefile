@@ -1,37 +1,50 @@
-# --- Source ---
-
-SRC = so_long.c
-#LIBFT = cd libft && make
-#LIB = libft/libft.a
-
-# --- Constants ---
+GREEN = \033[0;32m
+RED = \033[0;31m
+RESET = \033[0m
 
 NAME = so_long
-HEADER = include/so_long.h
 CC = gcc
-CFLAGS = -Wextra -Wall -Werror -g -fsanitize=address
+FLAGS = #-Wall -Wextra -Werror -g -fsanitize=address
+MLX = mlx/Makefile.gen
+LFT = libft/libft.a
+INC = -I ./includes -I ./libft -I ./mlx
+LIB = -L ./libft -lft -L ./mlx -lmlx -lXext -lX11 -lm
+#valgrind --leak-check=full --show-leak-kinds=all
+OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
+SRC = src/so_long.c
 
-# --- Objects ---
+all: $(MLX) $(LFT) obj $(NAME)
 
-OBJ = $(SRC:.c=.o)
+$(NAME): $(OBJ)
+	@$(CC) $(FLAGS) -o $@ $^ $(LIB)
 
-# --- Compile ---
+$(MLX):
+	@echo " [ .. ] | Compiling minilibx.."
+	@make -s -C mlx
+	@echo " [ $(GREEN)OK$(RESET) ] | Minilibx ready!"
 
-all: $(NAME)
+$(LFT): 
+	@echo " [ .. ] | Compiling libft.."
+	@make -s -C libft
+	@echo " [ $(GREEN)OK$(RESET) ] | Libft ready!"
 
-$(NAME): dir_obj
-	@$(CC) $(CFLAGS) -c source/$(SRC) -o obj/$(OBJ)
-	@$(CC) $(CFLAGS) obj/$(OBJ) $(HEADER) -o $(NAME)
-
-dir_obj:
+obj:
 	@mkdir -p obj
 
+obj/%.o: src/%.c
+	@echo "$@ $(GREEN)created$(RESET)"
+	@$(CC) $(FLAGS) $(INC) -o $@ -c $<
+
 clean:
-	@rm -rf obj/$(OBJ) obj
+	@make -s $@ -C libft
+	@rm -rf $(OBJ) obj
+	@echo "Object files removed."
 
 fclean: clean
+	@make -s $@ -C libft
 	@rm -rf $(NAME)
+	@echo "Binary file removed."
 
 re: fclean all
 
-.PHONY: all so_long clean fclean re
+.PHONY: all clean fclean re
