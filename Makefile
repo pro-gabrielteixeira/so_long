@@ -11,7 +11,7 @@ INC = -I ./includes -I ./libft -I ./mlx
 LIB = -L ./libft -lft -L ./mlx -lmlx -lXext -lX11 -lm
 #valgrind --leak-check=full --show-leak-kinds=all
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
-SRC = src/so_long.c
+SRC = src/so_long.c src/map_validation.c src/generate_img.c
 
 all: $(MLX) $(LFT) obj $(NAME)
 

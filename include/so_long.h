@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 16:27:58 by gateixei          #+#    #+#             */
-/*   Updated: 2023/03/25 20:22:13 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/03/27 01:35:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,33 @@
 # include <math.h>
 # include "../libft/include/libft.h"
 
-typedef struct s_data {
+typedef struct s_img {
     void    *img;
-    char    *addr;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-}   t_data;
+	char	*relative_path;
+}	t_img;
+
+typedef struct s_data_img {
+    t_img	collectibles;
+    t_img	exit;
+    t_img	floor;
+    t_img	player;
+    t_img	wall;
+    int     img_height;
+	int		img_width;
+}	t_data_img;
+
+// map_validation.c
+void	free_mem(char **str);
+int		is_well_constructed(char **str);
+int		is_rectangle(char **str);
+char	**join_str(char **str, char *tmp);
+char	**init_map(void);
+
+// generate_img.c
+void	*def_img(char c, t_data_img *data_img);
+void	*generate_map_on_window(void *mlx, void *mlx_win, char **str, t_data_img *data_img);
+void	*create_window_size(void *mlx, char **str);
+void    build_data_img(void *mlx, t_data_img *data_img);
+void    map_build(char **str, void *mlx);
 
 #endif
