@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:35:45 by gateixei          #+#    #+#             */
-/*   Updated: 2023/03/26 21:57:32 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:41:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ int is_rectangle(char **str)
     while (str && str[0][j] != '\0' && str[0][j] != '\n')
         j++;
     if (i >= j)
-        return (1);
+    {
+        return (1);    
+    }
 	while (str && str[s] != NULL)
 	{
 		i = 0;
@@ -110,22 +112,26 @@ char	**join_str(char **str, char *tmp)
 	return (new_str);
 }
 
-char	**init_map(void)
+char	**init_map(char *map)
 {
     int		fd;
 	char	*tmp;
 	char	**str;
 
 	str = NULL;
-	fd = open("maps/map_1.ber", O_RDONLY);
+	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		exit(1);
-	while (tmp = get_next_line(fd))
+    {
+        perror("Couldn't open the map... Do I really need glasses?");
+		exit(EXIT_FAILURE);
+    }
+	while ((tmp = get_next_line(fd)))
 		str = join_str(str, tmp);
 	if (is_rectangle(str) || is_well_constructed(str))
 	{
 		free_mem(str);
-		exit(1);
+        perror("Are you kidding!? Ugly map, try to follow the rules!");
+		exit(EXIT_FAILURE);
 	}
 	return (str);
 }
