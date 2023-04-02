@@ -6,11 +6,46 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:35:45 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 19:50:58 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:14:12 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+int    check_walls(char **str)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+    while (str[i][j] != '\n' && str[i][j] != '\0')
+    {
+        if (str[i][j] != '1')
+            return (1);
+        j++;
+    }
+    while (str[i] != NULL)
+    {
+        j = 0;
+        if (str[i][j] != '1')
+            return (1);
+        while (str[i][j] != '\n' && str[i][j] != '\0')
+            j++;
+        if (str[i][j - 1] != '1')
+            return (1);
+		i++;
+    }
+	i = i - 1;
+	j = 0;
+    while (str[i][j] != '\n' && str[i][j] != '\0')
+    {
+        if (str[i][j] != '1')
+            return (1);
+        j++;
+    }
+	return (0);
+}
 
 void	free_mem(char **str)
 {
@@ -130,7 +165,7 @@ char	**init_map(char *map, t_vars *vars)
     }
 	while ((tmp = get_next_line(fd)))
 		str = join_str(str, tmp);
-	if (is_rectangle(str) || is_well_constructed(str))
+	if (is_rectangle(str) || is_well_constructed(str) || check_walls(str))
 	{
         free_mem(str);
         mlx_destroy_display(vars->mlx);
