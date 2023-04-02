@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:33:22 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 17:39:17 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/02 20:30:30 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void	*def_img(char c, t_data_img *data_img)
     return (0);
 }
 
-void	generate_map_on_window(void *mlx, void *mlx_win, char **map, t_data_img *data_img)
+void	generate_map_on_window(t_vars *vars)
 {
 	int i;
 	int	s;
 
 	s = 0;
-	while (map && map[s] != NULL)
+	while (vars->map && vars->map[s] != NULL)
 	{
 		i = 0;
-		while (map && map[s][i] != '\0' && map[s][i] != '\n')
+		while (vars->map && vars->map[s][i] != '\0' && vars->map[s][i] != '\n')
 		{
-			mlx_put_image_to_window(mlx, mlx_win, def_img(map[s][i], data_img), (i * 64), (s * 64));
+			mlx_put_image_to_window(vars->mlx, vars->win, def_img(vars->map[s][i], &vars->texture), (i * 64), (s * 64));
 			i++;
 		}
 		s++;
@@ -85,5 +85,5 @@ void    map_build(t_vars *vars)
 {
     build_data_img(vars->mlx, &vars->texture);
 	vars->win = create_window_size(vars->mlx, vars->map);
-	generate_map_on_window(vars->mlx, vars->win, vars->map, &vars->texture);
+	generate_map_on_window(vars);
 }

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:35:45 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 18:41:29 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:50:58 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	**join_str(char **str, char *tmp)
 	return (new_str);
 }
 
-char	**init_map(char *map)
+char	**init_map(char *map, t_vars *vars)
 {
     int		fd;
 	char	*tmp;
@@ -122,6 +122,9 @@ char	**init_map(char *map)
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
     {
+        mlx_destroy_display(vars->mlx);
+        free(vars->mlx);
+	    vars->mlx = NULL;
         perror("Couldn't open the map... Do I really need glasses?");
 		exit(EXIT_FAILURE);
     }
@@ -129,7 +132,10 @@ char	**init_map(char *map)
 		str = join_str(str, tmp);
 	if (is_rectangle(str) || is_well_constructed(str))
 	{
-		free_mem(str);
+        free_mem(str);
+        mlx_destroy_display(vars->mlx);
+    	free(vars->mlx);
+	    vars->mlx = NULL;
         perror("Are you kidding!? Ugly map, try to follow the rules!");
 		exit(EXIT_FAILURE);
 	}
