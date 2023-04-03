@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 16:27:58 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 22:30:16 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:48:57 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	destroy_all(t_vars *vars);
 int		win_action(int keycode, t_vars *vars);
 
 // move_handler.c
-int    move_right(char **map, int i, int j);
-int    move_left(char **map, int i, int j);
-int    move_down(char **map, int i, int j);
-int    move_up(char **map, int i, int j);
+int    move_right(char **map, int i, int j, t_vars *vars);
+int    move_left(char **map, int i, int j, t_vars *vars);
+int    move_down(char **map, int i, int j, t_vars *vars);
+int    move_up(char **map, int i, int j, t_vars *vars);
 int    move_action(t_vars *vars, int keycode);
 
 // so_long.c
