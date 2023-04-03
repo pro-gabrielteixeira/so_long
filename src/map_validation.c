@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:35:45 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 23:14:12 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:47:27 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ char	**init_map(char *map, t_vars *vars)
         mlx_destroy_display(vars->mlx);
         free(vars->mlx);
 	    vars->mlx = NULL;
+        write(1, "Error\n", 6);
         perror("Couldn't open the map... Do I really need glasses?");
 		exit(EXIT_FAILURE);
     }
@@ -171,6 +172,7 @@ char	**init_map(char *map, t_vars *vars)
         mlx_destroy_display(vars->mlx);
     	free(vars->mlx);
 	    vars->mlx = NULL;
+        write(1, "Error\n", 6);
         perror("Are you kidding!? Ugly map, try to follow the rules!");
 		exit(EXIT_FAILURE);
 	}

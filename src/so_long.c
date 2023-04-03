@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:43:01 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 22:40:57 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:45:53 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	check_field(char **str, t_vars *vars)
 	    		mlx_destroy_display(vars->mlx);
 				free(vars->mlx);
 	    		vars->mlx = NULL;
+                write(1, "Error\n", 6);
 	    		perror("There's no way to exit here! It's a game not jail!!");
 				exit(EXIT_FAILURE);
 			}
@@ -94,12 +95,14 @@ void	check_args(int argc, char *str)
 
 	if (argc != 2)
 	{
+        write(1, "Error\n", 6);
 		perror("Hmm... I want ONLY the path to maps, idiot!!");
 		exit(EXIT_FAILURE);
 	}	
 	i = ft_strlen(str);
 	if (i < 4)
 	{
+        write(1, "Error\n", 6);
 		perror("I don't have a crystal ball...");
 		exit(EXIT_FAILURE);
 	}
@@ -110,6 +113,7 @@ void	check_args(int argc, char *str)
 	{
 		if (str[i++] != str_checker[j++])
 		{
+            write(1, "Error\n", 6);
 			perror("Jeeeezz, I Want a .ber file!!! .ber!!!!");
 			exit(EXIT_FAILURE);
 		}
