@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:35:45 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 16:49:40 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:16:12 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,9 @@ char	**init_map(char *map, t_vars *vars)
 	while (TRUE)
 	{
 		tmp = get_next_line(fd);
-		str = join_str(str, tmp);
 		if (!tmp)
 			break ;
+		str = join_str(str, tmp);
 	}
 	map_valid(str, vars);
 	return (str);
