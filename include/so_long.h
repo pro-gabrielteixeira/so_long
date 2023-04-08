@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 16:27:58 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/03 18:48:57 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 15:20:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,30 @@
 # include <math.h>
 # include "../libft/include/libft.h"
 
-typedef struct	s_img {
-    void    *img;
+typedef struct s_img {
+	void	*img;
 	char	*relative_path;
 }	t_img;
 
-typedef struct	s_data_img {
-    t_img	collectibles;
-    t_img	exit;
-    t_img	floor;
-    t_img	player;
-    t_img	wall;
-    int     img_height;
+typedef struct s_data_img {
+	t_img	collectibles;
+	t_img	exit;
+	t_img	floor;
+	t_img	player;
+	t_img	wall;
+	int		img_height;
 	int		img_width;
 }	t_data_img;
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-	char	**map;
+typedef struct s_vars {
+	void		*mlx;
+	void		*win;
+	char		**map;
 	t_data_img	texture;
 }	t_vars;
 
 // map_validation.c
-void	free_mem(char **str);
+int		check_walls(char **str);
 int		is_well_constructed(char **str);
 int		is_rectangle(char **str);
 char	**join_str(char **str, char *tmp);
@@ -61,20 +61,20 @@ char	**init_map(char *map, t_vars *vars);
 void	*def_img(char c, t_data_img *data_img);
 void	generate_map_on_window(t_vars *vars);
 void	*create_window_size(void *mlx, char **str);
-void    build_data_img(void *mlx, t_data_img *data_img);
-void    map_build(t_vars *vars);
+void	build_data_img(void *mlx, t_data_img *data_img);
+void	map_build(t_vars *vars);
 
 // events_handler.c
-void    destroy_img(t_vars *vars);
+void	map_valid(char **str, t_vars *vars);
+void	free_mem(char **str);
+void	destroy_img(t_vars *vars);
 void	destroy_all(t_vars *vars);
 int		win_action(int keycode, t_vars *vars);
 
 // move_handler.c
-int    move_right(char **map, int i, int j, t_vars *vars);
-int    move_left(char **map, int i, int j, t_vars *vars);
-int    move_down(char **map, int i, int j, t_vars *vars);
-int    move_up(char **map, int i, int j, t_vars *vars);
-int    move_action(t_vars *vars, int keycode);
+int		check_col(char **map);
+int		move(t_vars *vars, int ns, int ew);
+int		move_action(t_vars *vars, int keycode);
 
 // so_long.c
 void	check_field(char **str, t_vars *vars);
