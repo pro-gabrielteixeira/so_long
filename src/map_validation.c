@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:35:45 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 15:01:10 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:49:40 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ int	check_walls(char **str)
 
 int	is_well_constructed(char **str)
 {
-	int	i;
-	int	j;
-	int	s;
+	static int	j = 0;
+	static int	s = 0;
+	static int	c = 0;
+	int			i;
 
-	j = 0;
-	s = 0;
 	while (str && str[s] != NULL)
 	{
 		i = 0;
@@ -54,13 +53,15 @@ int	is_well_constructed(char **str)
 				j = j + 3;
 			else if (str[s][i] == 'P')
 				j = j + 2;
-			else if (str[s][i] != 'C' && str[s][i] != '0' && str[s][i] != '1')
+			else if (str[s][i] == 'C')
+				c++;
+			else if (str[s][i] != '0' && str[s][i] != '1')
 				return (1);
 			i++;
 		}
 		s++;
 	}
-	if (j != 5)
+	if (j != 5 || c < 1)
 		return (1);
 	return (0);
 }
